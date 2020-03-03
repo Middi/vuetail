@@ -1,17 +1,12 @@
 <template>
-  <div id="app">
-    <ul id="example-1">
-      <li v-for="item in news" :key="item.id">
-        <h2 class="text-3xl">{{ item.title }}</h2>
-        <p class="mt-20" v-html="item.body"></p>
-      </li>
-    </ul>
+  <div class="container" id="app">
+        <h2 class="text-3xl">{{ home[0].title }}</h2>
+        <img v-if="home[0].image_thumbnail" :src="'http://localhost:8000' + home[0].image_thumbnail.url" alt="">
   </div>
 </template>
 
 <script>
 
-import axios from 'axios';
 import './assets/styles/index.css';
 
 export default {
@@ -21,13 +16,13 @@ export default {
   },
   data () {
       return {
-          news: []
+          home: []
       }
   },
   mounted () {
-      axios
-      .get('http://localhost:8000/api/v2/pages/?type=news.NewsPage&fields=intro,body')
-      .then(response => (this.news = response.data.items))
+    fetch('http://localhost:8000/api/v2/pages/?type=home.HomePage&fields=image_thumbnail')
+      .then(res => res.json())
+      .then(res => this.home = res.items)
   }
 }
 </script>
