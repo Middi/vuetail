@@ -25,5 +25,5 @@ class HomePage(Page):
 
     api_fields = [
         APIField('body'),
-        APIField('image_thumbnail', serializer=ImageRenditionField('fill-100x100', source='image')),
+        APIField('image', serializer=ImageRenditionField('fill-1200x800')),
     ]
